@@ -60,7 +60,7 @@ angular.module('app.routes', [])
     controller: 'registroCtrl'
   })
 
-$urlRouterProvider.otherwise('/trivia-menu/inicio')
+$urlRouterProvider.otherwise('/login')
 
   
 
