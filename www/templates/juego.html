@@ -1,20 +1,10 @@
-<ion-view view-title="TRIVIA LOCA">
-  <ion-content class="padding">
-    <center><h1>{{preguntaJuego[0].pregunta}}</h1></center>
-
-    <button class="button button-block button-positive" ng-click="esCorrecta(1)">
-    	{{preguntaJuego[0].rta1}}
-	</button>
-
-	<button class="button button-block button-positive" ng-click="esCorrecta(2)">
-    	{{preguntaJuego[0].rta2}}
-	</button>
-
-	<button class="button button-block button-positive" ng-click="esCorrecta(3)">
-    	{{preguntaJuego[0].rta3}}
-	</button>
-
-  </ion-content>
+<ion-view title="Juego" id="page5" style="background-color:#DB3254;">
+    <ion-content padding="true" class="has-header">
+        <h2 id="juego-heading4" style="color:#F1F1F1;text-align:center;">¿Pregunta pregunta pregunta pregunta?</h2>
+        <div class="spacer" style="width: 300px; height: 115px;"></div>
+        <button id="juego-button11" style="border-radius:10px 10px 10px 10px;" class="button button-balanced button-large button-block">Respuesta 1</button>
+        <button id="juego-button14" style="border-radius:10px 10px 10px 10px;" class="button button-balanced button-large button-block">Respuesta 2</button>
+        <button id="juego-button15" style="border-radius:10px 10px 10px 10px;" class="button button-balanced button-large button-block">Respuesta 3</button>
+        <h3 id="juego-heading6" style="color:#F1F1F1;text-align:center;">Correctas: 0 de 5</h3>
+    </ion-content>
 </ion-view>
-
-

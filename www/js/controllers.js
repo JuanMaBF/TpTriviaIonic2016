@@ -1,125 +1,61 @@
-angular.module('triviaUTN.controllers', [])
+angular.module('app.controllers', [])
 
-.controller('TriviaCtrl', function($scope, $ionicModal, $timeout) {
+.controller('menuCtrl', ['$scope', '$stateParams',function ($scope, $stateParams) {
 
-  $scope.loginData = {};
-  $scope.uauarioActual = "ad";
-  /* --- LOGUEO --- */
+	/*LOGEO*/
+	$scope.usrActual;
+	if(!$scope.usrActual){
+		//Direccionar loguin
+		location.href = "#/login";
+	}
 
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modalLoguin = modal;
-  });
-  //Cerrar
-  $scope.cerrarLogin = function() {
-    $scope.modalLoguin.hide();
-  };
-  //Mostrar
-  $scope.login = function() {
-    $scope.cerrarRegistro();
-    $scope.modalLoguin.show();
-  };
-  //Eenviar
-  $scope.enviarLogin = function() {
+}])
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.cerrarLogin();
-    }, 1000);
-  };
+.controller('loginCtrl', ['$scope', '$stateParams',function ($scope, $stateParams) {
+	$scope.submitLogin = function(usr){
+		//Datos del usuario
+	}
+}])
+   
+.controller('registroCtrl',function ($scope, $stateParams, $http) {
 
-  /* --- REGISTRO --- */
-  $scope.dataForm = {};
+	//Verificar que el usuario ingresado no existe aun
+	$scope.usuarioExiste = function(usrIngresado){
+		$("#usr-existe").src = "img/bien.png";
+		firebase.database().ref().once('value').then(function(snapshot) { //Conexion con firebase
+			listaUsuarios = snapshot.val();
+  			$.each(listaUsuarios, function(i){ //Recorremos la lista de usuarios
+				if(listaUsuarios[i].usuario == usrIngresado){ //Si coincide alguno con el ingresado
+					console.log(usrIngresado);
+					$("#usr-existe").src = "img/bien.png";
+					return;
+				}
+			})
+			$("#usr-existe").src = "img/bien.png";
+		});		
+	}
 
-  $ionicModal.fromTemplateUrl('templates/registro.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modalRegistro = modal;
-  });
-  //Cerrar
-  $scope.cerrarRegistro = function() {
-    $scope.modalRegistro.hide();
-  };
-  //Mostrar
-  $scope.registro = function() {
-    $scope.cerrarLogin();
-    $scope.modalRegistro.show();
-  };
-  //Enviar
-  $scope.enviarRegistro = function() {
-
-    //Verificamos que todos los campos esten completos
-    /*if($scope.dataForm.usuario == "" || $scope.dataForm.contra1 == "" || $scope.dataForm.contra2 == "")
-    {
-      alert("Todos los campso deben estar completos");
-      return;
-    }
-    
-    REVISAR EN ETAPA DE DISENIO: http://stackoverflow.com/questions/16691778/check-if-a-input-box-is-empty
-
-    */
-    //Verificamos que las contraseñas sean iguales
-    if($scope.dataForm.contra1 != $scope.dataForm.contra2)
-    {
-      alert("Las contraseñas no coinciden.");
-      return;
-    }
-
-    // Verificamos que el usuario no fue ingresado previamente
-    var conexFirebase = new Firebase('https://usuarios-trivia.firebaseio.com/');
-    conexFirebase.once('value').then(function(snapshot) {
-    var username = snapshot.val().usuario;
-    console.log(username);
-    }); //Objeto firebase
-    /*if(conexFirebase.snapshot.val().usuario)
-    {
-      console.log(conexFirebase.snapshot.val().usuario);
-    }*/
-
-    //Guardamos el usuario en FireBase
-    var conexFirebase = new Firebase('https://usuarios-trivia.firebaseio.com/')
-    conexFirebase.push({usuario:$scope.dataForm.usuario, contra:$scope.dataForm.contra1});
-
-    //Guardamos en variable $scope
-    $scope.usuarioActual = $scope.dataForm.usuario;
-
-
-    /*$timeout(function() {
-      $scope.cerrarRegistro();
-    }, 1000);*/
-  };
+	//Cargar el nuevo usuario
+	$scope.submitReg = function(usr){
+	}
 
 })
+  
+.controller('triviaUTNCtrl', ['$scope', '$stateParams',function ($scope, $stateParams) {
 
-.controller('InicioCtrl', function($scope) {
+}])
+   
+.controller('presentacionCtrl', ['$scope', '$stateParams', function ($scope, $stateParams) {
 
-})
-
-.controller('JuegoCtrl', function($scope, $http) {
-
-  //Cargar datos de la pregunta
-  $scope.preguntaJuego = [];
-  $http({
-    method: 'GET',
-    url: './preguntas.json'
-  }).then(function successCallback(response) {
-
-      aleatorio = Math.floor((Math.random() * response.data.length)); //Numero aleatorio
-      $scope.preguntaJuego.push(response.data[aleatorio]); //Pregunta aleatoria
-      console.log($scope.preguntaJuego);
-    }, function errorCallback(response) {
-      console.log(response);
-    });
-
-  //Comprobar si es correcta
-  $scope.esCorrecta = function(num){
-    if($scope.preguntaJuego[0].correcta == num)
-      alert("CORRECTA");
-    else 
-      alert("INCORRECTA");
-  }
+}])
+   
+.controller('miGithubCtrl', ['$scope', '$stateParams',function ($scope, $stateParams) {
 
 
-});
+}])
+   
+.controller('juegoCtrl', ['$scope', '$stateParams',function ($scope, $stateParams) {
+
+
+}])
+ 
